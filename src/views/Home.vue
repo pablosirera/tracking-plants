@@ -1,11 +1,16 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
+    <ListPlants />
   </div>
 </template>
 
 <script>
+import ListPlants from '@/components/ui/ListPlants'
+
 export default {
-  name: 'Home'
+  name: 'Home',
+  components: {
+    ListPlants
+  }
 }
 </script>
