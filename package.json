@@ -6,7 +6,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint --no-fix",
+    "lint:fix": "vue-cli-service lint"
   },
   "dependencies": {
     "core-js": "^3.6.4",
@@ -36,7 +37,7 @@
     "vue-template-compiler": "^2.6.11"
   },
   "gitHooks": {
-    "pre-commit": "lint-staged"
+    "pre-commit": "lint-staged && npm run lint"
   },
   "lint-staged": {
     "*.{js,jsx,vue}": [
