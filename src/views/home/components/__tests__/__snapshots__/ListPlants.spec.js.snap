@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HomeView -> ListPlants should match snapshot 1`] = `
+<div>
+  <h1
+    class="title font-bold text-xl mb-4"
+  >
+    
+    Mis plantas
+  
+  </h1>
+   
+  <ul>
+    <li>
+      <button
+        class="border border-black rounded-full py-1 px-3 text-3xl"
+        data-test-id="add-button"
+      >
+        
+        +
+      
+      </button>
+    </li>
+  </ul>
+</div>
+`;
