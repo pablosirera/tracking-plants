@@ -22,6 +22,7 @@
 <script>
 import Autocomplete from '@/components/ui/Autocomplete'
 import { PlantsService } from '@/services'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'AddView',
@@ -33,6 +34,9 @@ export default {
     currentPlant: null
   }),
   methods: {
+    ...mapActions({
+      savePlant: 'plants/savePlant'
+    }),
     async onChangeAutocomplete(value) {
       if (value.length >= 3) {
         this.plants = await PlantsService.findPlant(value)
@@ -46,7 +50,7 @@ export default {
       this.plants = []
     },
     onSubmit() {
-      console.log(this.currentPlant.id)
+      this.savePlant(this.currentPlant)
     }
   }
 }
