@@ -1,5 +1,5 @@
 <template>
-  <div class="autocomplete-wrapper">
+  <div class="relative">
     <div>
       <input
         v-model="itemSelected"
@@ -8,11 +8,14 @@
         @input="changeValueAutocomplete"
       />
     </div>
-    <div class="border py-1 px-1" v-if="items.length">
+    <div
+      class="border h-32 overflow-y-scroll absolute w-full bg-white"
+      v-if="items.length"
+    >
       <span
         v-for="item in items"
         :key="item.id"
-        class="block cursor-pointer capitalize hover:font-bold"
+        class="block cursor-pointer capitalize py-1 px-1 hover:font-bold hover:bg-gray-200"
         @click="selectItem(item)"
       >
         {{ item.name }}
