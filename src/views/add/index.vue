@@ -8,57 +8,40 @@
       />
     </div>
     <h1 class="font-bold text-2xl text-center mt-4">Nueva Planta</h1>
-    <form class="mt-8" @submit.prevent="onSubmit">
-      <Autocomplete
-        :items="plants"
-        @input="onChangeAutocomplete"
-        @select-item="onSelectItem"
-        @clear-item="clearItems"
-      />
-      <div class="flex justify-center mt-8">
-        <TheButton size="large">Guardar</TheButton>
-      </div>
-    </form>
+    <AddPlantForm
+      :plants="plants"
+      @submit-form="onSubmit"
+      @find-plant="findPlant"
+      @clear-items="clearItems"
+    />
   </section>
 </template>
 
 <script>
-import Autocomplete from '@/components/ui/Autocomplete'
-import TheButton from '@/components/ui/TheButton'
+import AddPlantForm from './components/AddPlantForm'
 import { PlantsService } from '@/services'
 import { mapActions } from 'vuex'
 
 export default {
   name: 'AddView',
   components: {
-    Autocomplete,
-    TheButton
+    AddPlantForm
   },
   data: () => ({
-    plants: [],
-    currentPlant: null
+    plants: []
   }),
   methods: {
     ...mapActions({
       savePlant: 'plants/savePlant'
     }),
-    async onChangeAutocomplete(value) {
-      if (value.length >= 3) {
-        this.plants = await PlantsService.findPlant(value)
-        return
-      }
-
-      this.plants = []
-    },
-    onSelectItem(item) {
-      this.currentPlant = item
-      this.plants = []
+    async findPlant(value) {
+      this.plants = await PlantsService.findPlant(value)
     },
     clearItems() {
       this.plants = []
     },
-    onSubmit() {
-      this.savePlant(this.currentPlant)
+    onSubmit(currentPlant) {
+      this.savePlant(currentPlant)
     }
   }
 }
