@@ -1,15 +1,14 @@
 <template>
   <div class="relative">
-    <div>
-      <input
-        v-model="itemSelected"
-        type="text"
-        class="border py-1 px-1 rounded w-full capitalize focus:outline-none"
-        @input="changeValueAutocomplete"
-      />
-    </div>
+    <input
+      v-model="itemSelected"
+      v-click-outside="onClickOutsideInput"
+      type="text"
+      class="border py-1 px-1 rounded w-full capitalize focus:outline-none"
+      @input="changeValueAutocomplete"
+    />
     <div
-      class="border h-32 overflow-y-scroll absolute w-full bg-white"
+      class="border max-h-32 overflow-y-scroll absolute w-full bg-white"
       v-if="items.length"
     >
       <span
@@ -44,6 +43,9 @@ export default {
     selectItem(item) {
       this.itemSelected = item.name
       this.$emit('select-item', item)
+    },
+    onClickOutsideInput() {
+      this.$emit('clear-item')
     }
   }
 }

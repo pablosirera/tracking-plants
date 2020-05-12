@@ -13,6 +13,7 @@
         :items="plants"
         @input="onChangeAutocomplete"
         @select-item="onSelectItem"
+        @clear-item="clearItems"
       />
       <div class="flex justify-center mt-8">
         <TheButton size="large">Guardar</TheButton>
@@ -51,6 +52,9 @@ export default {
     },
     onSelectItem(item) {
       this.currentPlant = item
+      this.plants = []
+    },
+    clearItems() {
       this.plants = []
     },
     onSubmit() {
