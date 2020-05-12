@@ -6,6 +6,8 @@ import store from './store'
 import '@/assets/styles'
 import './configFirebase'
 
+store.dispatch('auth/getToken')
+
 Vue.config.productionTip = false
 
 new Vue({

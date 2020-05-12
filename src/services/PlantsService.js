@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from '@/http'
 import { API_ROUTES } from '@/constants'
 import PlantsTransformer from '@/transformers/Plants'
 
@@ -10,8 +10,12 @@ class PlantsService {
       page_size: 10
     }
 
-    const response = await axios.get(API_ROUTES.ALL_PLANTS, { params })
-    return PlantsTransformer.fetchCollection(response.data)
+    try {
+      const response = await axios.get(API_ROUTES.ALL_PLANTS, { params })
+      return PlantsTransformer.fetchCollection(response.data)
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
 
