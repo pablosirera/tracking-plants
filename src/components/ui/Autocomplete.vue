@@ -1,6 +1,7 @@
 <template>
   <div class="relative">
     <input
+      data-test="autocomplete-input"
       v-model="itemSelected"
       v-click-outside="onClickOutsideInput"
       type="text"
@@ -8,12 +9,14 @@
       @input="changeValueAutocomplete"
     />
     <div
+      data-test="wrapper-items-autocomplete"
       class="border max-h-32 overflow-y-scroll absolute w-full bg-white"
       v-if="items.length"
     >
       <span
         v-for="item in items"
         :key="item.id"
+        data-test="autocomplete-item"
         class="block cursor-pointer capitalize py-1 px-1 hover:font-bold hover:bg-gray-200"
         @click="selectItem(item)"
       >
