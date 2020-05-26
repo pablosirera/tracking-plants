@@ -4,8 +4,9 @@
       data-test="autocomplete-input"
       v-model="itemSelected"
       v-click-outside="onClickOutsideInput"
+      :placeholder="placeholder"
       type="text"
-      class="border py-1 px-1 rounded w-full capitalize focus:outline-none"
+      class="name-autocomplete border py-1 px-1 rounded w-full capitalize focus:outline-none"
       @input="changeValueAutocomplete"
     />
     <div
@@ -33,6 +34,9 @@ export default {
     items: {
       type: Array,
       default: () => []
+    },
+    placeholder: {
+      type: String
     }
   },
   data: () => ({
@@ -41,7 +45,7 @@ export default {
   methods: {
     changeValueAutocomplete(event) {
       const value = event.target.value
-      this.$emit('input', value)
+      this.$emit('is-typing', value)
     },
     selectItem(item) {
       this.itemSelected = item.name
@@ -53,3 +57,11 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.name-autocomplete {
+  &::placeholder {
+    text-transform: initial;
+  }
+}
+</style>

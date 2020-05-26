@@ -1,5 +1,5 @@
 <template>
-  <button type="submit" :class="buttonClasses">
+  <button type="submit" :class="buttonClasses" :disabled="isDisabled">
     <slot />
   </button>
 </template>
@@ -17,6 +17,10 @@ export default {
       type: String,
       default: 'medium',
       validate: value => ['small', 'medium', 'large'].indexOf(value) !== -1
+    },
+    isDisabled: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
@@ -31,7 +35,8 @@ export default {
       return {
         [primaryClasses]: this.theme === 'primary',
         [mediumClasses]: this.size === 'medium',
-        [largeClasses]: this.size === 'large'
+        [largeClasses]: this.size === 'large',
+        'opacity-50 cursor-default': this.isDisabled
       }
     }
   }

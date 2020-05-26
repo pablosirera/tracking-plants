@@ -6,10 +6,17 @@ import store from './store'
 import '@/assets/styles'
 import './configFirebase'
 import vClickOutside from 'v-click-outside'
+import * as rules from 'vee-validate/dist/rules'
+import { extend } from 'vee-validate'
 
 Vue.config.productionTip = false
 
 Vue.use(vClickOutside)
+
+// install rules and localization
+Object.keys(rules).forEach(rule => {
+  extend(rule, rules[rule])
+})
 
 new Vue({
   router,
