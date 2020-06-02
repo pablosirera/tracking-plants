@@ -15,6 +15,12 @@ const routes = [
     path: ROUTES.ADD.path,
     name: ROUTES.ADD.name,
     component: () => import('@/views/add/index.vue')
+  },
+  {
+    path: ROUTES.DETAIL.path,
+    name: ROUTES.DETAIL.name,
+    props: true,
+    component: () => import('@/views/detail/index.vue')
   }
 ]
 

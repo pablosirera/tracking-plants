@@ -9,10 +9,16 @@ export default {
     })
     console.log(response)
   },
-  async listPlants() {
+  async listPlants({ commit }) {
     const response = await myPlantsCollection.get()
-    return response.docs.map(item => {
+    const parsedData = response.docs.map(item => {
       return item.data()
     })
+    commit('setPlants', parsedData)
+    return parsedData
+  },
+  async getPlant(_, plantId) {
+    const response = await myPlantsCollection.doc(plantId).get()
+    return response.data()
   }
 }

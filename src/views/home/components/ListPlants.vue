@@ -17,7 +17,8 @@
       <li
         v-for="plant in plants"
         :key="plant.id"
-        class="plant-item shadow-lg w-32 h-32 rounded-lg mr-5 flex items-center justify-center flex-col cursor-pointer"
+        class="plant-item shadow-lg w-32 h-32 rounded-lg mr-5 flex items-center justify-center flex-col cursor-pointer hover:bg-gray-100"
+        @click="emitItemEvent(plant.id)"
       >
         <img
           class="w-12 h-16"
@@ -44,6 +45,9 @@ export default {
   methods: {
     goToCreatePlant() {
       this.$router.push({ name: ROUTES.ADD.name })
+    },
+    emitItemEvent(plantId) {
+      this.$emit('item-clicked', plantId)
     }
   }
 }

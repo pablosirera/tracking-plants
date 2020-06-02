@@ -6,5 +6,9 @@ export const ROUTES = {
   ADD: {
     path: '/add',
     name: 'AddPlant'
+  },
+  DETAIL: {
+    path: '/detail/:id',
+    name: 'PlantDetail'
   }
 }
