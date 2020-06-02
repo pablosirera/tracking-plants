@@ -1,13 +1,18 @@
 import { myPlantsCollection } from '@/configFirebase'
 
 export default {
-  // eslint-disable-next-line no-unused-vars
-  async savePlant({ commit }, payload) {
+  async savePlant(_, payload) {
     const response = await myPlantsCollection.doc(payload.id.toString()).set({
       name: payload.name,
       id: payload.id,
       link: payload.link
     })
     console.log(response)
+  },
+  async listPlants() {
+    const response = await myPlantsCollection.get()
+    return response.docs.map(item => {
+      return item.data()
+    })
   }
 }
