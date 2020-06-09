@@ -8,10 +8,14 @@ import './configFirebase'
 import vClickOutside from 'v-click-outside'
 import * as rules from 'vee-validate/dist/rules'
 import { extend } from 'vee-validate'
+import VueAnalytics from 'vue-analytics'
 
 Vue.config.productionTip = false
 
 Vue.use(vClickOutside)
+Vue.use(VueAnalytics, {
+  id: process.env.VUE_APP_UA
+})
 
 // install rules and localization
 Object.keys(rules).forEach(rule => {
