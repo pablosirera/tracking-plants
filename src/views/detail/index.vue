@@ -1,11 +1,15 @@
 <template>
   <section class="relative">
-    <div class="h-64 bg-green-400 flex justify-between" v-if="plant">
-      <h1>{{ plant.name }}</h1>
-      <img class="w-64 rounded-lg h-40 mt-4" :src="plant.images[1].url" />
+    <div class="h-screen bg-green-400 flex justify-between p-8" v-if="plant">
+      <h1 class="text-3xl capitalize font-bold">{{ plant.name }}</h1>
+      <img
+        v-if="plant.images && plant.images.length"
+        class="w-56 rounded-lg h-40 mt-4"
+        :src="plant.images[1].url"
+      />
     </div>
     <div class="detail-body bg-white absolute w-full h-full p-8">
-      hello
+      <pre>{{ plant }}</pre>
     </div>
   </section>
 </template>

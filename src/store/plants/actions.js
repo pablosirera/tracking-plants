@@ -18,7 +18,7 @@ export default {
     return parsedData
   },
   async getPlant(_, plantId) {
-    const response = await myPlantsCollection.doc(plantId).get()
+    const response = await myPlantsCollection.doc(plantId.toString()).get()
     return response.data()
   }
 }
