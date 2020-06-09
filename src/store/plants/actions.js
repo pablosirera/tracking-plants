@@ -20,5 +20,11 @@ export default {
   async getPlant(_, plantId) {
     const response = await myPlantsCollection.doc(plantId.toString()).get()
     return response.data()
+  },
+  updatePlant(_, plantData) {
+    const { id, data } = plantData
+    return myPlantsCollection.doc(id.toString()).update({
+      waterPlant: [...data]
+    })
   }
 }
