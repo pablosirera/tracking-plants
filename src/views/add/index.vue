@@ -1,5 +1,5 @@
 <template>
-  <section class="mt-20">
+  <section class="mt-20 custom-container">
     <div class="flex justify-center">
       <img
         class="w-48"

@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home custom-container">
     <ListPlants :plants="plants" @item-clicked="goToDetail" />
   </div>
 </template>
