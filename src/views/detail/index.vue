@@ -13,6 +13,7 @@
         <p class="font-bold">¿Has regado tu planta hoy?</p>
         <ToggleButton
           v-model="isWaterPlant"
+          :sync="true"
           :labels="{ checked: 'SI', unchecked: 'NO' }"
           @change="onChangeToggleButton"
         />
@@ -60,22 +61,50 @@ export default {
         ...currentPlant,
         ...plant
       }
+      this.checkWaterPlantToday()
+    },
+    checkWaterPlantToday() {
+      this.isWaterPlant = this.plant.waterPlant.some(date =>
+        this.isToday(new Date(date))
+      )
+    },
+    isToday(date) {
+      const today = new Date()
+      return (
+        date.getDate() === today.getDate() &&
+        date.getMonth() === today.getMonth() &&
+        date.getFullYear() === today.getFullYear()
+      )
     },
     onChangeToggleButton(value) {
       if (value.value) {
-        const today = new Date()
-        const hasWaterPlant =
-          this.plant.waterPlant && this.plant.waterPlant.length
-        const waterPlant = hasWaterPlant
-          ? [...this.plant.waterPlant, today]
-          : [today]
-
-        const data = {
-          id: this.plant.id,
-          data: waterPlant
-        }
-        this.updatePlant(data)
+        this.savePlant()
+      } else {
+        this.removeLastPlant()
       }
+    },
+    async savePlant() {
+      const today = new Date()
+      const hasWaterPlant =
+        this.plant.waterPlant && this.plant.waterPlant.length
+      const waterPlant = hasWaterPlant
+        ? [...this.plant.waterPlant, today.toISOString()]
+        : [today.toISOString()]
+
+      const data = {
+        id: this.plant.id,
+        data: waterPlant
+      }
+      await this.updatePlant(data)
+      this.loadData()
+    },
+    removeLastPlant() {
+      this.plant.waterPlant.pop()
+      const data = {
+        id: this.plant.id,
+        data: this.plant.waterPlant
+      }
+      this.updatePlant(data)
     }
   }
 }

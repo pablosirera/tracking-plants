@@ -21,10 +21,11 @@ export default {
     const response = await myPlantsCollection.doc(plantId.toString()).get()
     return response.data()
   },
-  updatePlant(_, plantData) {
+  updatePlant({ dispatch }, plantData) {
     const { id, data } = plantData
-    return myPlantsCollection.doc(id.toString()).update({
+    myPlantsCollection.doc(id.toString()).update({
       waterPlant: [...data]
     })
+    dispatch('listPlants')
   }
 }
