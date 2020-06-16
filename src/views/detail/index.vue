@@ -19,7 +19,19 @@
         />
       </div>
       <div class="mt-6">
-        <Calendar color="green" title-position="left" :attributes="attrs" />
+        <span
+          @click="toggleCalendar"
+          class="text-calendar block text-lg cursor-pointer font-bold hover:underline mb-3 text-blue-600"
+          >Ver calendario de riego</span
+        >
+        <transition name="fade">
+          <Calendar
+            v-if="shouldShowCalendar"
+            color="green"
+            title-position="left"
+            :attributes="attrs"
+          />
+        </transition>
       </div>
     </div>
   </section>
@@ -45,7 +57,8 @@ export default {
   data: () => ({
     plant: [],
     isWaterPlant: false,
-    attrs: []
+    attrs: [],
+    shouldShowCalendar: false
   }),
   computed: {
     ...mapGetters('plants', ['getCurrentPlant'])
@@ -100,6 +113,9 @@ export default {
         this.removeLastPlant()
       }
     },
+    toggleCalendar() {
+      this.shouldShowCalendar = !this.shouldShowCalendar
+    },
     async savePlant() {
       const today = new Date()
       const hasWaterPlant =
@@ -133,5 +149,9 @@ export default {
   border-top-left-radius: 70px;
   border-top-right-radius: 70px;
   top: 200px;
+
+  .text-calendar {
+    width: fit-content;
+  }
 }
 </style>
