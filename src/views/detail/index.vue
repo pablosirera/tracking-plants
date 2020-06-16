@@ -18,19 +18,24 @@
           @change="onChangeToggleButton"
         />
       </div>
+      <div class="mt-6">
+        <Calendar color="green" title-position="left" :attributes="attrs" />
+      </div>
     </div>
   </section>
 </template>
 
 <script>
 import { ToggleButton } from 'vue-js-toggle-button'
+import Calendar from 'v-calendar/lib/components/calendar.umd'
 import { mapGetters, mapActions } from 'vuex'
 import { PlantsService } from '@/services'
 
 export default {
   name: 'Detail',
   components: {
-    ToggleButton
+    ToggleButton,
+    Calendar
   },
   props: {
     id: {
@@ -39,7 +44,8 @@ export default {
   },
   data: () => ({
     plant: [],
-    isWaterPlant: false
+    isWaterPlant: false,
+    attrs: []
   }),
   computed: {
     ...mapGetters('plants', ['getCurrentPlant'])
@@ -62,6 +68,7 @@ export default {
         ...plant
       }
       this.checkWaterPlantToday()
+      this.loadWaterPlantsDates()
     },
     checkWaterPlantToday() {
       if (this.plant.waterPlant && this.plant.waterPlant.length) {
@@ -77,6 +84,14 @@ export default {
         date.getMonth() === today.getMonth() &&
         date.getFullYear() === today.getFullYear()
       )
+    },
+    loadWaterPlantsDates() {
+      this.attrs = this.plant.waterPlant.map(date => {
+        return {
+          highlight: true,
+          dates: new Date(date)
+        }
+      })
     },
     onChangeToggleButton(value) {
       if (value.value) {
@@ -100,13 +115,14 @@ export default {
       await this.updatePlant(data)
       this.loadData()
     },
-    removeLastPlant() {
+    async removeLastPlant() {
       this.plant.waterPlant.pop()
       const data = {
         id: this.plant.id,
         data: this.plant.waterPlant
       }
-      this.updatePlant(data)
+      await this.updatePlant(data)
+      this.loadData()
     }
   }
 }
