@@ -64,9 +64,11 @@ export default {
       this.checkWaterPlantToday()
     },
     checkWaterPlantToday() {
-      this.isWaterPlant = this.plant.waterPlant.some(date =>
-        this.isToday(new Date(date))
-      )
+      if (this.plant.waterPlant && this.plant.waterPlant.length) {
+        this.isWaterPlant = this.plant.waterPlant.some(date =>
+          this.isToday(new Date(date))
+        )
+      }
     },
     isToday(date) {
       const today = new Date()
