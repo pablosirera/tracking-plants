@@ -4,18 +4,29 @@
       <h1 class="text-xl text-center font-semibold py-8">
         Bienvenido a Tracking Plants
       </h1>
-      <AuthForm />
+      <AuthForm @auth="handleAuth" />
     </div>
   </section>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import AuthForm from '@/views/auth/components/AuthForm'
 
 export default {
   name: 'Auth',
   components: {
     AuthForm
+  },
+  methods: {
+    ...mapActions({
+      registerUser: 'auth/registerUser'
+    }),
+    handleAuth(data) {
+      if (data.action === 'register') {
+        this.registerUser({ email: data.email, password: data.pass })
+      }
+    }
   }
 }
 </script>

@@ -1,30 +1,41 @@
 <template>
-  <form
-    @submit.prevent="handleSubmit"
-    class="flex items-center justify-center flex-col pb-12 px-16"
-  >
+  <form class="flex items-center justify-center flex-col pb-12 px-16">
     <div class="field">
       <label for="email">
         Email
       </label>
-      <input class="input" type="text" id="email" />
+      <input v-model="email" class="input" type="text" id="email" />
     </div>
     <div class="field">
       <label for="password">
         Contraseña
       </label>
-      <input class="input" type="text" id="password" />
+      <input v-model="password" class="input" type="password" id="password" />
     </div>
     <div class="wrapper-buttons">
       <button>Iniciar sesión</button>
-      <button>Registrar</button>
+      <button type="button" @click="handleAction('register')">Registrar</button>
     </div>
   </form>
 </template>
 
 <script>
 export default {
-  name: 'AuthForm'
+  name: 'AuthForm',
+  data: () => ({
+    email: null,
+    password: null
+  }),
+  methods: {
+    handleAction(action) {
+      this.$emit('auth', { action, email: this.email, pass: this.password })
+      this.deleteDataForm()
+    },
+    deleteDataForm() {
+      this.email = null
+      this.password = null
+    }
+  }
 }
 </script>
 
