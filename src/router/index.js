@@ -21,6 +21,11 @@ const routes = [
     name: ROUTES.DETAIL.name,
     props: true,
     component: () => import('@/views/detail/index.vue')
+  },
+  {
+    path: ROUTES.AUTH.path,
+    name: ROUTES.AUTH.name,
+    component: () => import('@/views/auth/index.vue')
   }
 ]
 

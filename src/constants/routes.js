@@ -10,5 +10,9 @@ export const ROUTES = {
   DETAIL: {
     path: '/detail/:id',
     name: 'PlantDetail'
+  },
+  AUTH: {
+    path: '/auth',
+    name: 'Auth'
   }
 }
