@@ -25,7 +25,7 @@
           src="@/assets/images/botanical.svg"
           :alt="plant.name"
         />
-        <p class="text-sm">{{ plant.name }}</p>
+        <p class="text-sm capitalize font-semibold">{{ plant.name }}</p>
       </li>
     </ul>
   </div>
