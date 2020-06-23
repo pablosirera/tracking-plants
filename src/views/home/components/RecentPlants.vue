@@ -8,7 +8,7 @@
       @click="goToDetail(plant.id)"
     >
       <div class="image-wrapper">
-        <img :src="getImageUrl(images[index])" />
+        <img :src="getImageUrl(images[index])" alt="Imagen de la planta" />
       </div>
       <span class="mt-4 block capitalize font-semibold">{{ plant.name }}</span>
       <span class="duration">{{ plant.duration }}</span>
