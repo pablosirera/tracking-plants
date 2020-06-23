@@ -39,7 +39,6 @@
 
 <script>
 import { ToggleButton } from 'vue-js-toggle-button'
-import Calendar from 'v-calendar/lib/components/calendar.umd'
 import { mapGetters, mapActions } from 'vuex'
 import { PlantsService } from '@/services'
 
@@ -47,7 +46,7 @@ export default {
   name: 'Detail',
   components: {
     ToggleButton,
-    Calendar
+    Calendar: () => import('v-calendar/lib/components/calendar.umd')
   },
   props: {
     id: {

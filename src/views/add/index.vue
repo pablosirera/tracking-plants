@@ -41,7 +41,11 @@ export default {
       this.plants = []
     },
     onSubmit(currentPlant) {
-      this.savePlant(currentPlant)
+      const parsePlant = {
+        ...currentPlant,
+        dueDate: new Date().toISOString()
+      }
+      this.savePlant(parsePlant)
     }
   }
 }
