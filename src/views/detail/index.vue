@@ -18,6 +18,21 @@
           @change="onChangeToggleButton"
         />
       </div>
+      <div class="mt-6">
+        <span
+          @click="toggleCalendar"
+          class="text-calendar block text-lg cursor-pointer font-bold hover:underline mb-3 text-blue-600"
+          >Ver calendario de riego</span
+        >
+        <transition name="fade">
+          <Calendar
+            v-if="shouldShowCalendar"
+            color="green"
+            title-position="left"
+            :attributes="attrs"
+          />
+        </transition>
+      </div>
     </div>
   </section>
 </template>
@@ -30,7 +45,8 @@ import { PlantsService } from '@/services'
 export default {
   name: 'Detail',
   components: {
-    ToggleButton
+    ToggleButton,
+    Calendar: () => import('v-calendar/lib/components/calendar.umd')
   },
   props: {
     id: {
@@ -39,7 +55,9 @@ export default {
   },
   data: () => ({
     plant: [],
-    isWaterPlant: false
+    isWaterPlant: false,
+    attrs: [],
+    shouldShowCalendar: false
   }),
   computed: {
     ...mapGetters('plants', ['getCurrentPlant'])
@@ -62,6 +80,7 @@ export default {
         ...plant
       }
       this.checkWaterPlantToday()
+      this.loadWaterPlantsDates()
     },
     checkWaterPlantToday() {
       if (this.plant.waterPlant && this.plant.waterPlant.length) {
@@ -78,12 +97,23 @@ export default {
         date.getFullYear() === today.getFullYear()
       )
     },
+    loadWaterPlantsDates() {
+      this.attrs = this.plant.waterPlant.map(date => {
+        return {
+          highlight: true,
+          dates: new Date(date)
+        }
+      })
+    },
     onChangeToggleButton(value) {
       if (value.value) {
         this.savePlant()
       } else {
         this.removeLastPlant()
       }
+    },
+    toggleCalendar() {
+      this.shouldShowCalendar = !this.shouldShowCalendar
     },
     async savePlant() {
       const today = new Date()
@@ -100,13 +130,14 @@ export default {
       await this.updatePlant(data)
       this.loadData()
     },
-    removeLastPlant() {
+    async removeLastPlant() {
       this.plant.waterPlant.pop()
       const data = {
         id: this.plant.id,
         data: this.plant.waterPlant
       }
-      this.updatePlant(data)
+      await this.updatePlant(data)
+      this.loadData()
     }
   }
 }
@@ -117,5 +148,9 @@ export default {
   border-top-left-radius: 70px;
   border-top-right-radius: 70px;
   top: 200px;
+
+  .text-calendar {
+    width: fit-content;
+  }
 }
 </style>
