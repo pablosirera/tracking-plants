@@ -13,8 +13,12 @@
       <input v-model="password" class="input" type="password" id="password" />
     </div>
     <div class="wrapper-buttons">
-      <button>Iniciar sesión</button>
-      <button type="button" @click="handleAction('register')">Registrar</button>
+      <button type="button" @click="handleAction('login')">
+        Iniciar sesión
+      </button>
+      <button type="button" @click="handleAction('register')">
+        Registrar
+      </button>
     </div>
   </form>
 </template>

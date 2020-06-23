@@ -20,12 +20,16 @@ export default {
   },
   methods: {
     ...mapActions({
-      registerUser: 'auth/registerUser'
+      registerUser: 'auth/registerUser',
+      loginUser: 'auth/loginUser'
     }),
     handleAuth(data) {
-      if (data.action === 'register') {
-        this.registerUser({ email: data.email, password: data.pass })
+      const userData = { email: data.email, password: data.pass }
+      const options = {
+        register: () => this.registerUser(userData),
+        login: () => this.loginUser(userData)
       }
+      options[data.action]()
     }
   }
 }
