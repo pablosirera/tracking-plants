@@ -12,6 +12,7 @@
 <script>
 import { mapActions } from 'vuex'
 import AuthForm from '@/views/auth/components/AuthForm'
+import { ROUTES } from '@/constants'
 
 export default {
   name: 'Auth',
@@ -30,6 +31,7 @@ export default {
         login: () => this.loginUser(userData)
       }
       options[data.action]()
+      this.$router.push({ name: ROUTES.HOME.name })
     }
   }
 }
