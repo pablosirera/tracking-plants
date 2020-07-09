@@ -1,5 +1,11 @@
 <template>
   <div class="home custom-container">
+    <p v-if="user" class="pb-10">
+      Bienvenido,<br />
+      <span class="text-2xl font-bold text-red-main-400">
+        {{ user.displayName }}
+      </span>
+    </p>
     <RecentPlants :plants="recentPlants" />
     <ListPlants :plants="plants" @item-clicked="goToDetail" />
   </div>
@@ -8,7 +14,7 @@
 <script>
 import ListPlants from '@/views/home/components/ListPlants'
 import RecentPlants from '@/views/home/components/RecentPlants'
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import { ROUTES } from '@/constants'
 
 export default {
@@ -23,6 +29,9 @@ export default {
   }),
   mounted() {
     this.loadData()
+  },
+  computed: {
+    ...mapState('auth', ['user'])
   },
   methods: {
     ...mapActions({

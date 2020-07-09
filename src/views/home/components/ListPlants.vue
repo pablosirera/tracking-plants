@@ -8,7 +8,7 @@
       <li class="mr-5">
         <button
           data-test-id="add-button"
-          class="add-button border border-red-main-400 text-3xl w-12 h-12"
+          class="add-button"
           @click="goToCreatePlant"
         >
           +
@@ -56,6 +56,8 @@ export default {
 <style lang="scss" scoped>
 .add-button {
   border-radius: 16px;
+  line-height: unset;
+  @apply flex justify-center border border-red-main-400 text-3xl w-12 h-12;
 }
 
 .list {

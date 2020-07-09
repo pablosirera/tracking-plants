@@ -1,14 +1,22 @@
 import { myPlantsCollection } from '@/configFirebase'
 
 export default {
-  savePlant(_, payload) {
-    return myPlantsCollection.doc(payload.id.toString()).set({
-      name: payload.name,
-      id: payload.id,
-      link: payload.link,
-      dueDate: payload.dueDate,
-      duration: payload.duration
-    })
+  savePlant(_, { userId, data }) {
+    const userDocRef = myPlantsCollection
+      .doc(userId)
+      .collection('plants')
+      .doc(data.id.toString())
+    return userDocRef.set(
+      {
+        name: data.name,
+        id: data.id,
+        link: data.link,
+        dueDate: data.dueDate
+        // TODO: integrate duration
+        // duration: data.duration
+      },
+      { merge: true }
+    )
   },
   async listPlants({ commit }) {
     const response = await myPlantsCollection.get()

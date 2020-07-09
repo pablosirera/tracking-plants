@@ -11,7 +11,7 @@
     />
     <div
       data-test="wrapper-items-autocomplete"
-      class="border max-h-32 overflow-y-scroll absolute w-full bg-white"
+      class="border max-h-32 overflow-y-scroll absolute w-full bg-white z-10"
       v-if="items.length"
     >
       <span

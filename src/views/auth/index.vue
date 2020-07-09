@@ -25,7 +25,11 @@ export default {
       loginUser: 'auth/loginUser'
     }),
     handleAuth(data) {
-      const userData = { email: data.email, password: data.pass }
+      const userData = {
+        email: data.email,
+        password: data.pass,
+        name: data.name
+      }
       const options = {
         register: () => this.registerUser(userData),
         login: () => this.loginUser(userData)

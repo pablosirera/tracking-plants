@@ -20,7 +20,7 @@
 <script>
 import AddPlantForm from './components/AddPlantForm'
 import { PlantsService } from '@/services'
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 export default {
   name: 'AddView',
@@ -30,6 +30,9 @@ export default {
   data: () => ({
     plants: []
   }),
+  computed: {
+    ...mapState('auth', ['user'])
+  },
   methods: {
     ...mapActions({
       savePlant: 'plants/savePlant'
@@ -42,8 +45,11 @@ export default {
     },
     onSubmit(currentPlant) {
       const parsePlant = {
-        ...currentPlant,
-        dueDate: new Date().toISOString()
+        userId: this.user.user.uid,
+        data: {
+          ...currentPlant,
+          dueDate: new Date().toISOString()
+        }
       }
       this.savePlant(parsePlant)
     }
